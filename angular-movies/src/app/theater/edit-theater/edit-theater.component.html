@@ -1,0 +1,14 @@
+<h2>Edit Theater</h2>
+
+<app-display-errors
+  *ngIf="errors.length > 0"
+  [errors]="errors"
+></app-display-errors>
+
+<app-form-theater
+  *ngIf="model"
+  [model]="model"
+  (onSaveTheater)="editTheater($event)"
+></app-form-theater>
+
+<mat-spinner *ngIf="!model"></mat-spinner>

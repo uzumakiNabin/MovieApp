@@ -1,0 +1,9 @@
+<h2>Create Movie</h2>
+<app-display-errors [errors]="errors"></app-display-errors>
+<app-form-movie
+  [allGenres]="allGenres"
+  [allTheaters]="allTheaters"
+  (onSaveMovie)="saveMovie($event)"
+></app-form-movie>
+
+<mat-spinner *ngIf="loadingData"></mat-spinner>

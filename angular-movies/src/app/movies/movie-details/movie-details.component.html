@@ -1,0 +1,64 @@
+<div *ngIf="movie" class="flex flex-col">
+  <div>
+    <h2>{{ movie.title }} ({{ releaseDate.getFullYear() }})</h2>
+
+    <mat-chip-listbox>
+      <mat-chip-option
+        *ngFor="let genre of movie.genres"
+        [routerLink]="['/movies/filter']"
+        [queryParams]="{ genreId: genre.id }"
+        >{{ genre.name }}</mat-chip-option
+      >
+    </mat-chip-listbox>
+    | {{ releaseDate.toDateString() }} | Average: {{ movie.averageVote }} | Your
+    vote
+    <app-rating
+      (onRating)="rateMovie($event)"
+      [selectedRating]="movie.userVote"
+    ></app-rating>
+
+    <div class="flex margin-top">
+      <span class="image-container">
+        <img class="poster" [src]="movie.poster" />
+      </span>
+      <div *ngIf="trailerURL">
+        <iframe
+          width="900"
+          height="500"
+          [src]="trailerURL"
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="margin-top">
+      <h3>Summary</h3>
+      <div>
+        <markdown [data]="movie.summary" ngPreserveWhitespaces></markdown>
+      </div>
+    </div>
+
+    <div class="margin-top">
+      <h3>Actors</h3>
+      <div class="flex flex-col">
+        <div *ngFor="let actor of movie.actors" style="margin-bottom: 2px">
+          <img class="actor-photo" [src]="actor.photo" style="width: 50px" />
+          <span class="inline-block" style="width: 200px">{{
+            actor.name
+          }}</span>
+          <span class="inline-block" style="width: 45px">...</span>
+          <span class="inline-block">{{ actor.character }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="coordinates.length > 0">
+    <h2>Displaying in the following movie theaters</h2>
+    <app-map [initialCoords]="coordinates" [editMode]="false"></app-map>
+  </div>
+</div>
+
+<mat-spinner *ngIf="!movie"></mat-spinner>

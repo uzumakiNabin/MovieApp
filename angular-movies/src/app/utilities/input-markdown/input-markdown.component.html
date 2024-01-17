@@ -1,0 +1,15 @@
+<mat-tab-group>
+  <mat-tab label="Edit">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ label }}</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="markdownContent"
+        (change)="handleTextChange($event)"
+      ></textarea>
+    </mat-form-field>
+  </mat-tab>
+  <mat-tab label="Preview">
+    <markdown [data]="markdownContent" ngPreserveWhiteSpaces></markdown>
+  </mat-tab>
+</mat-tab-group>

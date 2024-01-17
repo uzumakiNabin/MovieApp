@@ -1,0 +1,45 @@
+<app-generic-list [list]="movies">
+  <ng-container empty> There is <em>No</em> record to show. </ng-container>
+  <ng-container content>
+    <h1>{{ title }}</h1>
+    <div class="movies-container">
+      <div *ngFor="let movie of movies" class="movie-container">
+        <a [routerLink]="'/movies/' + movie.id">
+          <img [src]="movie.poster" [alt]="movie.title + '_poster'" />
+        </a>
+        <div class="movie-details">
+          <a [routerLink]="'/movies/' + movie.id">{{ movie.title }}</a>
+          <p>
+            {{ movie.releaseDate | date : "yyyy-MMMM-dd" | uppercase }}
+          </p>
+          <!-- <p>{{ movie.price | currency }}</p> -->
+        </div>
+        <app-authorize-view [role]="'admin'">
+          <ng-container authorized>
+            <div class="button-group">
+              <a
+                mat-raised-button
+                color="primary"
+                [routerLink]="'/movies/edit/' + movie.id"
+                >Edit</a
+              >
+              <button
+                mat-stroked-button
+                color="warn"
+                type="button"
+                [swal]="{
+                  title: 'Confirmation',
+                  text: 'Are you sure to delete this movie?',
+                  showCancelButton: true
+                }"
+                (confirm)="removeMovie(movie.id)"
+              >
+                Delete
+              </button>
+            </div>
+          </ng-container>
+        </app-authorize-view>
+      </div>
+    </div>
+  </ng-container>
+</app-generic-list>

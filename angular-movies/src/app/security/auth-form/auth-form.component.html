@@ -1,0 +1,21 @@
+<h2>{{ action }}</h2>
+
+<form (submit)="submit()" [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+    <mat-error>{{ getEmailFieldError() }}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" />
+    <mat-error>Password is required</mat-error>
+  </mat-form-field>
+
+  <div class="button-group">
+    <button mat-flat-button color="primary" [disabled]="form.invalid">
+      {{ action }}
+    </button>
+    <a mat-stroked-button routerLink="/">Cancel</a>
+  </div>
+</form>

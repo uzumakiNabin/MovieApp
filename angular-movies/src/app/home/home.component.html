@@ -1,0 +1,11 @@
+<app-movies-list
+  [movies]="homeMovies.inTheaters"
+  [title]="'Movies in Theatre'"
+  (onDelete)="handleDelete()"
+></app-movies-list>
+
+<app-movies-list
+  [movies]="homeMovies.upcomingReleases"
+  [title]="'Upcoming Movies'"
+  (onDelete)="handleDelete()"
+></app-movies-list>

@@ -1,0 +1,47 @@
+<h2>Theaters</h2>
+<button mat-flat-button color="primary" routerLink="/theaters/create">
+  Create New
+</button>
+
+<app-generic-list [list]="theaters">
+  <ng-container content>
+    <table
+      mat-table
+      [dataSource]="theaters"
+      class="mat-elevation-z8 table-index"
+    >
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <a
+            routerLink="/theaters/edit/{{ element.id }}"
+            mat-flat-button
+            color="primary"
+          >
+            Edit
+          </a>
+          <button
+            mat-flat-button
+            color="warn"
+            [swal]="{
+              title: 'Confirmation',
+              text: 'Are you sure to delete?',
+              showCancelButton: true
+            }"
+            (confirm)="deleteTheater(element.id)"
+          >
+            Delete
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+  </ng-container>
+</app-generic-list>

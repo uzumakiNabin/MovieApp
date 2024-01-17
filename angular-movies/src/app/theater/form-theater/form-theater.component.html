@@ -1,0 +1,21 @@
+<form (submit)="saveTheater()" [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input formControlName="name" matInput />
+    <mat-error *ngIf="form.invalid">{{ getErrorMessageFieldName() }}</mat-error>
+  </mat-form-field>
+
+  <h4>Select location of Theater</h4>
+  <app-map (onLeafletClick)="setMapCoords($event)" [initialCoords]="initialCoordinates"></app-map>
+
+  <div>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="form.invalid"
+    >
+      Save Theater
+    </button>
+    <a mat-stroked-button color="warn" routerLink="/theaters">Cancel</a>
+  </div>
+</form>

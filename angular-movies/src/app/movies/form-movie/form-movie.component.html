@@ -1,0 +1,60 @@
+<form (submit)="saveMovie()" [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+    <mat-error>Title is required</mat-error>
+  </mat-form-field>
+
+  <div>
+    <mat-checkbox formControlName="inTheaters">In Theatres</mat-checkbox>
+  </div>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Trailer</mat-label>
+    <input matInput formControlName="trailer" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Release Date</mat-label>
+    <input matInput formControlName="releaseDate" [matDatepicker]="picker" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <h4>Select a poster</h4>
+  <app-input-img
+    [existingImage]="movieToEdit?.poster"
+    (onImageSelected)="imageSelected($event)"
+  ></app-input-img>
+
+  <h4>Summary</h4>
+  <app-input-markdown
+    [label]="'Summary'"
+    [existingContent]="movieToEdit?.summary"
+    (onTextChange)="setSummary($event)"
+  ></app-input-markdown>
+
+  <h4>Select Genres</h4>
+  <app-multiple-selector
+    [nonselectedItems]="allGenres"
+    [selectedItems]="selectedGenres"
+  ></app-multiple-selector>
+
+  <h4>Select Theaters</h4>
+  <app-multiple-selector
+    [nonselectedItems]="allTheaters"
+    [selectedItems]="selectedTheaters"
+  ></app-multiple-selector>
+
+  <h4>Select Actors</h4>
+  <app-actors-autocomplete
+    [selectedActors]="selectedActors"
+  ></app-actors-autocomplete>
+
+  <div>
+    <button mat-raised-button color="primary" [disabled]="form.invalid">
+      Save Movie
+    </button>
+    <a mat-stroked-button color="warn" routerLink="/">Cancel</a>
+  </div>
+</form>
